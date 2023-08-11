@@ -8,7 +8,7 @@ Follow these steps to get started with the project:
 1. Clone this repository to your local machine.
 
 ```bash
-git clone https://github.com/your-username/your-project.git
+git clone (https://github.com/ozcaneren/bookmark-app.git)
 ```
 
 
