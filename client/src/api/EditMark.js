@@ -1,141 +1,99 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import EditMark from "./EditMark";
-import { HiOutlineTrash } from "react-icons/hi";
-import { AiOutlineEdit } from "react-icons/ai";
+import { useState, useEffect, useCallback } from "react";
 
-const FetchMarks = ({ shouldFetch }) => {
-  const [marks, setMarks] = useState([]);
+const EditMark = ({ markId, onClose, onUpdate }) => {
+  const [mark, setMark] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const [editMode, setEditMode] = useState(false);
-  const [selectedMarkId, setSelectedMarkId] = useState(null);
-
-  const getMarks = async () => {
+  const getMarkById = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:5000/api/marks");
-      setMarks(response.data.data);
+      const response = await axios.get(`http://localhost:5000/api/marks/${markId}`);
+      setMark(response.data.data);
     } catch (error) {
-      console.error("Error fetching marks:", error);
+      console.error("Error fetching mark:", error);
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [markId]);
 
   useEffect(() => {
-    getMarks();
-  }, [shouldFetch]);
+    getMarkById();
+  }, [getMarkById]); // 'getMarkById' bağımlılığını ekledik
 
-  const handleEdit = (markId) => {
-    setSelectedMarkId(markId);
-    setEditMode(true);
-  };
 
-  const handleDelete = async (markId) => {
+  const handleUpdate = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/marks/${markId}`);
-      getMarks();
+      await axios.put(`http://localhost:5000/api/marks/${markId}`, mark);
+      onUpdate(); // İşaretlerin güncellendiğini FetchMarks bileşenine bildirin.
+      onClose(); // EditMark bileşenini kapatın.
     } catch (error) {
-      console.error("Error deleting mark:", error);
+      console.error("Error updating mark:", error);
     }
   };
 
   return (
     <div className="p-4">
-      <h2 className="text-center text-3xl">My bookmark app</h2>
-      <div className="max-w-3xl mx-auto mt-4">
-        <div className="flex flex-col">
-          <div className="overflow-x-auto shadow-md sm:rounded-lg">
-            <div className="inline-block min-w-full align-middle">
-              <div className="overflow-hidden">
-                <table className="min-w-full divide-y divide-gray-200 table-fixed">
-                  <thead className="bg-gray-100">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase "
-                      >
-                        Title
-                      </th>
-                      <th
-                        scope="col"
-                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase "
-                      >
-                        Description
-                      </th>
-                      <th
-                        scope="col"
-                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase "
-                      >
-                        URL
-                      </th>
-                      <th scope="col" className="p-4">
-                        <span className="sr-only">Edit</span>
-                      </th>
-                      <th scope="col" className="p-4">
-                        <span className="sr-only">Edit</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  {marks.map((mark, index) => (
-                    <tbody
-                      key={index}
-                      className="bg-white divide-y divide-gray-200"
-                    >
-                      <tr className="hover:bg-gray-100">
-                        <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                          {mark.title}
-                        </td>
-                        <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap ">
-                          {mark.description}
-                        </td>
-                        <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
-                          <a
-                            href={`https://${mark.url}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {mark.url}
-                          </a>
-                        </td>
-                        <td className="text-left whitespace-nowrap">
-                          <button
-                            onClick={() => handleEdit(mark._id)}
-                            href="#"
-                            className="text-blue-600 hover:underline"
-                          >
-                            <AiOutlineEdit />
-                          </button>
-                        </td>
-                        <td className="whitespace-nowrap">
-                          <button
-                            onClick={() => handleDelete(mark._id)}
-                            href="#"
-                            className="text-blue-600 hover:underline"
-                          >
-                            <HiOutlineTrash />
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  ))}
-                </table>
-              </div>
+      <h2 className="text-center text-3xl">Edit Bookmark</h2>
+      {isLoading ? (
+        <p className="text-center text-4xl">Loading...</p>
+      ) : (
+        <div className="max-w-3xl mx-auto mt-4">
+          <form onSubmit={handleUpdate}>
+            <div className="mb-4">
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                Title
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={mark.title || ""}
+                onChange={(e) => setMark({ ...mark, title: e.target.value })}
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+              />
             </div>
-          </div>
+            <div className="mb-4">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                Description
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                value={mark.description || ""}
+                onChange={(e) => setMark({ ...mark, description: e.target.value })}
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="url" className="block text-sm font-medium text-gray-700">
+                URL
+              </label>
+              <input
+                type="text"
+                id="url"
+                name="url"
+                value={mark.url || ""}
+                onChange={(e) => setMark({ ...mark, url: e.target.value })}
+                required
+                className="mt-1 p-2 w-full border rounded-md"
+              />
+            </div>
+            <div className="flex justify-end">
+              <button type="button" onClick={onClose} className="mr-2 text-red-600 hover:underline">
+                Cancel
+              </button>
+              <button type="submit" className="text-blue-600 hover:underline">
+                Save
+              </button>
+            </div>
+          </form>
         </div>
-      </div>
-      {editMode && (
-        <EditMark
-          markId={selectedMarkId}
-          onClose={() => setEditMode(false)}
-          onUpdate={getMarks}
-        />
       )}
-      {isLoading && <p className="text-center text-4xl">Loading...</p>}
     </div>
   );
 };
 
-export default FetchMarks;
+export default EditMark;

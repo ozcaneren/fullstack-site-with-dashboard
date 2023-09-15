@@ -1,41 +1,91 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import { useState, useEffect } from "react";
+import Header from "../components/Header";
 
 
-const FetchMarks = () => {
+const FetchMarks = ({ shouldFetch }) => {
   const [marks, setMarks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getMarks = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('http://localhost:5000/api/marks');
+      const response = await axios.get("http://localhost:5000/api/marks");
       setMarks(response.data.data);
     } catch (error) {
-      console.error('Error fetching marks:', error);
+      console.error("Error fetching marks:", error);
     } finally {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     getMarks();
-  }, []);
+  }, [shouldFetch]);
 
   return (
-    <div>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <ul>
-          {marks.map((mark, index) => (
-            <li key={index}>
-              {mark.title} {mark.url}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="p-4">
+      <Header />
+      <div className="max-w-3xl mx-auto pt-8">
+        <div className="flex flex-col">
+          <div className="overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200 table-fixed">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th
+                        scope="col"
+                        className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase "
+                      >
+                        Title
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3 px-6 text-xs font-medium tracking-wider text-center text-gray-700 uppercase "
+                      >
+                        Description
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase "
+                      >
+                        URL
+                      </th>
+                    </tr>
+                  </thead>
+                  {marks.map((mark, index) => (
+                    <tbody
+                      key={index}
+                      className="bg-white divide-y divide-gray-200"
+                    >
+                      <tr className="hover:bg-gray-100">
+                        <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                          {mark.title}
+                        </td>
+                        <td className="py-4 px-6 text-center text-sm font-medium text-gray-500 whitespace-nowrap ">
+                          {mark.description}
+                        </td>
+                        <td className="py-4 px-6 text-sm text-right font-medium text-gray-900 whitespace-nowrap">
+                          <a
+                            href={`https://${mark.url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {mark.url}
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  ))}
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default FetchMarks;
