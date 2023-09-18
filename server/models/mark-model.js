@@ -3,9 +3,11 @@ const Schema = mongoose.Schema
 
 const Mark = new Schema(
     {
+        type: { type: String, required: true },
         title: { type: String, required: true },
-        url: { type: String, required: true },
+        piece: { type: String, required: true },
         description: { type: String, required: true },
+        image: { type: String },
     },
     { timestamps: true },
 )
