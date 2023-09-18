@@ -52,8 +52,3 @@ If you'd like to contribute to this project, feel free to create a pull request 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-
-
-https://github.com/ozcaneren/bookmark-app/assets/100240225/aa96bea0-fe30-4fd4-a840-d4b82482791a
-
