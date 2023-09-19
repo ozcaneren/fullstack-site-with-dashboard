@@ -45,7 +45,7 @@ const SpecPanel = ({ shouldFetch }) => {
 
   return (
     <div>
-      <div className="flex flex-col h-screen bg-gray-100">
+      <div className="flex flex-col h-full bg-gray-100">
         <div className="bg-white text-white shadow w-full p-2 flex items-center justify-between">
           <div className="flex items-center">
             <div className="flex items-center text-black gap-8">
