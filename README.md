@@ -8,7 +8,7 @@ Install my project with yarn
   git clone https://github.com/ozcaneren/fullstack-site-with-dashboard.git
   cd fullstack-site-with-dashboard
   cd server && yarn && yarn start
-  cd .. && cd client && yarn && yarn start
+  cd client && yarn && yarn start
 ```
 
 **Admin Email:** deneme@gmail.com
