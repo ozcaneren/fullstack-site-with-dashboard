@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 export default function HeroSection() {
   return (
     <div className="container mx-auto pt-24">
-      <section className="relative w-full h-[700px] rounded-xl bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat">
-        <div className="absolute inset-0 bg-white/50"></div>
+      <section className="relative w-full h-[700px] rounded-xl bg-[url(https://wallpapercave.com/wp/wp8685859.jpg)] bg-cover bg-center bg-no-repeat">
+        <div className="absolute inset-0 bg-white/40"></div>
         <div className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
           <div className="max-w-xl text-center pb-64">
             <h1 className="text-3xl uppercase font-extrabold sm:text-5xl">
