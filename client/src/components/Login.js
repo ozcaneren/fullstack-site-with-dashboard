@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function Login() {
   const [data, setData] = useState({
@@ -31,6 +32,9 @@ export default function Login() {
 
   return (
     <div>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <div>
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
           <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">

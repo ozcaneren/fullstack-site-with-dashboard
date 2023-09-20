@@ -5,6 +5,7 @@ import AddSpec from "../api/AddSpec";
 import { HiOutlineTrash } from "react-icons/hi";
 import { AiOutlineEdit } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const SpecPanel = ({ shouldFetch }) => {
   const [specs, setSpecs] = useState([]);
@@ -45,6 +46,9 @@ const SpecPanel = ({ shouldFetch }) => {
 
   return (
     <div>
+      <Helmet>
+        <title>Panel</title>
+      </Helmet>
       <div className="flex flex-col h-full bg-gray-100">
         <div className="bg-white text-white shadow w-full p-2 flex items-center justify-between">
           <div className="flex items-center">

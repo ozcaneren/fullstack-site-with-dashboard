@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../components/Header";
@@ -34,6 +35,9 @@ function Room({ shouldFetch }) {
       <div className="">
         {marks.map((mark, index) => (
           <div key={index}>
+            <Helmet>
+              <title>{mark.title}</title>
+            </Helmet>
             <div className="md:flex items-start justify-center pb-12 pt-28 2xl:px-20 md:px-6 px-4">
               <div className="xl:w-2/6 lg:w-2/5 w-80 md:block hidden">
                 <img className="w-full h-[410px]" alt="" src={mark.image} />

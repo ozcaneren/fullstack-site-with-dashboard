@@ -9,6 +9,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function Specs({ shouldFetch }) {
   const [specs, setSpecs] = useState([]);

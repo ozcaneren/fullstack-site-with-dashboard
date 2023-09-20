@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Divide from "../components/Divide";
 import { BsArrowReturnLeft, BsWhatsapp } from "react-icons/bs";
+import { Helmet } from "react-helmet";
 
 function Room({ shouldFetch }) {
   const { id } = useParams();
@@ -34,6 +35,9 @@ function Room({ shouldFetch }) {
       <div className="">
         {specs.map((spec, index) => (
           <div key={index}>
+            <Helmet>
+              <title>{spec.spec_title}</title>
+            </Helmet>
             <div className="md:flex items-start justify-center pb-12 pt-28 2xl:px-20 md:px-6 px-4">
               <div className="xl:w-2/6 lg:w-2/5 w-80 md:block hidden">
                 <img

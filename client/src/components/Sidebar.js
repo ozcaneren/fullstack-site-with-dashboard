@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function Sidebar() {
   const handleLogout = () => {
@@ -9,6 +10,9 @@ function Sidebar() {
 
   return (
     <div>
+      <Helmet>
+        <title>Panel</title>
+      </Helmet>
       <div className="flex flex-col h-screen bg-gray-100">
         <div className="bg-white text-white shadow w-full p-2 flex items-center justify-between">
           <div className="flex items-center">

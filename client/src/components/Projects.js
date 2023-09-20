@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 import {
   Card,
   CardHeader,
@@ -35,6 +36,9 @@ function Projects({ shouldFetch }) {
   return (
     <>
       <div className="bg-gray-200 dark:bg-[#202125]">
+        <Helmet>
+          <title>Odalar</title>
+        </Helmet>
         <div className="container mx-auto">
           <div className="pt-24 pb-10">
             <h1 className="text-4xl font-bold text-center text-gray-800 dark:text-white">

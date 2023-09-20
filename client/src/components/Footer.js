@@ -40,19 +40,19 @@ export default function Footer() {
 
               <div className="flex flex-col items-start mt-5 space-y-2">
                 <a
-                  href="s"
+                  href="/"
                   className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                 >
                   Ana Sayfa
                 </a>
                 <a
-                  href="s"
+                  href="/rooms"
                   className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                 >
                   Odalar
                 </a>
                 <a
-                  href="s"
+                  href="/gallery"
                   className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                 >
                   Galeri

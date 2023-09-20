@@ -3,6 +3,7 @@ import axios from "axios";
 import Divide from "../components/Divide";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Helmet } from "react-helmet";
 
 function Gallery({ shouldFetch }) {
   const [marks, setMarks] = useState([]);
@@ -23,6 +24,9 @@ function Gallery({ shouldFetch }) {
 
   return (
     <>
+      <Helmet>
+        <title>Galeri</title>
+      </Helmet>
       <Header />
       <div className="flex justify-center items-center">
         <div className="container mx-auto">
